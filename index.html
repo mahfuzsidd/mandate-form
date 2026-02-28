@@ -1,155 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Mandate Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable NACH Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .form-container {
+            position: relative;
+            width: 1000px; /* Original image width */
+            height: 480px; /* Original image height */
+            background-image: url('https://r2.erweima.ai/i/6f90356c9a3d4639b7082390317e132e.jpg'); /* Aapki uploaded image */
+            background-size: contain;
+            background-repeat: no-repeat;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
 
-@page {
-  size: A4;
-  margin: 0;
-}
+        /* Generic input styling */
+        input {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #000;
+            font-size: 14px;
+            padding: 2px;
+            outline: none;
+        }
 
-body{
-  margin:0;
-  background:#ccc;
-  display:flex;
-  justify-content:center;
-}
+        input:focus {
+            background: #fff;
+            border-color: blue;
+        }
 
-.container{
-  position:relative;
-  width:794px;   /* Exact A4 width in px */
-  height:1123px; /* Exact A4 height in px */
-  background:white;
-}
-
-.bg{
-  width:100%;
-  height:100%;
-  position:absolute;
-  top:0;
-  left:0;
-}
-
-input{
-  position:absolute;
-  border:1px solid #000;
-  background:rgba(255,255,255,0.75);
-  font-size:11px;
-  padding:2px;
-}
-
-/* ========== TOP SECTION ========== */
-
-.umrn{
-  top:85px;
-  left:185px;
-  width:370px;
-}
-
-.date{
-  top:85px;
-  left:610px;
-  width:150px;
-}
-
-.utility{
-  top:120px;
-  left:185px;
-  width:370px;
-}
-
-.sponsor{
-  top:150px;
-  left:185px;
-  width:340px;
-}
-
-.bankacc{
-  top:185px;
-  left:480px;
-  width:280px;
-}
-
-.withbank{
-  top:220px;
-  left:185px;
-  width:340px;
-}
-
-.ifsc{
-  top:220px;
-  left:530px;
-  width:230px;
-}
-
-.amount{
-  top:260px;
-  left:600px;
-  width:160px;
-}
-
-.ref1{
-  top:310px;
-  left:185px;
-  width:360px;
-}
-
-.ref2{
-  top:310px;
-  left:570px;
-  width:190px;
-}
-
-.from{
-  top:370px;
-  left:185px;
-  width:200px;
-}
-
-.to{
-  top:400px;
-  left:185px;
-  width:200px;
-}
-
-.phone{
-  top:460px;
-  left:185px;
-  width:250px;
-}
-
-@media print{
-  body{
-    background:white;
-  }
-}
-
-</style>
+        /* Individual Box Positioning (Approximate - adjusts as needed) */
+        .umrn { top: 145px; left: 235px; width: 445px; letter-spacing: 12px; }
+        .date { top: 145px; left: 765px; width: 178px; letter-spacing: 8px; }
+        .utility-code { top: 205px; left: 235px; width: 445px; }
+        .bank-code { top: 265px; left: 175px; width: 300px; }
+        .acc-number { top: 335px; left: 540px; width: 403px; letter-spacing: 5px; }
+        .bank-name { top: 405px; left: 175px; width: 440px; }
+        .ifsc { top: 405px; left: 720px; width: 223px; }
+        .amount-words { top: 445px; left: 175px; width: 540px; }
+        .amount-figure { top: 445px; left: 750px; width: 195px; }
+        .ref1 { top: 565px; left: 175px; width: 345px; }
+        .ref2 { top: 565px; left: 605px; width: 340px; }
+        .phone { top: 900px; left: 125px; width: 155px; }
+        
+        /* Checkboxes */
+        .checkbox { position: absolute; cursor: pointer; transform: scale(1.2); }
+        .check-create { top: 225px; left: 768px; }
+        
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="form-container">
+    <input type="text" class="umrn" placeholder="UMRN Number">
+    <input type="text" class="date" placeholder="DDMMYYYY">
+    <input type="text" class="utility-code" placeholder="Utility Code">
+    <input type="text" class="bank-code" placeholder="Sponsor Bank Code">
+    <input type="text" class="acc-number" placeholder="Bank Account Number">
+    <input type="text" class="bank-name" placeholder="Name of Bank">
+    <input type="text" class="ifsc" placeholder="IFSC / MICR">
+    <input type="text" class="amount-words" placeholder="Amount in Rupees">
+    <input type="text" class="amount-figure" placeholder="Rs.">
+    <input type="text" class="ref1" placeholder="Application Number">
+    <input type="text" class="ref2" placeholder="Policy Number">
+    <input type="text" class="phone" placeholder="Phone Number">
 
-<img src="form-bg.png" class="bg">
-
-<input class="umrn" type="text">
-<input class="date" type="text">
-<input class="utility" type="text">
-<input class="sponsor" type="text">
-<input class="bankacc" type="text">
-<input class="withbank" type="text">
-<input class="ifsc" type="text">
-<input class="amount" type="text">
-<input class="ref1" type="text">
-<input class="ref2" type="text">
-<input class="from" type="text">
-<input class="to" type="text">
-<input class="phone" type="text">
-
+    <input type="checkbox" class="checkbox check-create" checked>
 </div>
 
 </body>
