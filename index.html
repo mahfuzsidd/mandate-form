@@ -6,118 +6,125 @@
 
 <style>
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
 body{
   margin:0;
+  background:#ccc;
   display:flex;
   justify-content:center;
-  background:#e5e5e5;
 }
 
-/* FIXED IMAGE SIZE */
 .container{
   position:relative;
-  width:1400px;   /* image ke original width ke hisaab se */
+  width:794px;   /* Exact A4 width in px */
+  height:1123px; /* Exact A4 height in px */
+  background:white;
 }
 
-/* IMAGE */
-.container img{
+.bg{
   width:100%;
-  display:block;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
 }
 
-/* INPUT STYLE */
 input{
   position:absolute;
-  border:1px solid black;
+  border:1px solid #000;
   background:rgba(255,255,255,0.75);
-  font-size:14px;
-  padding:3px;
+  font-size:11px;
+  padding:2px;
 }
 
-/* ================= POSITIONING ================= */
+/* ========== TOP SECTION ========== */
 
-/* TOP SECTION */
 .umrn{
-  top:110px;
-  left:330px;
-  width:650px;
+  top:85px;
+  left:185px;
+  width:370px;
 }
 
 .date{
-  top:110px;
-  left:1100px;
-  width:230px;
+  top:85px;
+  left:610px;
+  width:150px;
 }
 
 .utility{
-  top:165px;
-  left:330px;
-  width:650px;
+  top:120px;
+  left:185px;
+  width:370px;
 }
 
 .sponsor{
-  top:215px;
-  left:330px;
-  width:600px;
+  top:150px;
+  left:185px;
+  width:340px;
 }
 
-/* ACCOUNT SECTION */
 .bankacc{
-  top:265px;
-  left:850px;
-  width:480px;
+  top:185px;
+  left:480px;
+  width:280px;
 }
 
 .withbank{
-  top:315px;
-  left:330px;
-  width:600px;
+  top:220px;
+  left:185px;
+  width:340px;
 }
 
 .ifsc{
-  top:315px;
-  left:1000px;
-  width:330px;
+  top:220px;
+  left:530px;
+  width:230px;
 }
 
-/* AMOUNT */
 .amount{
-  top:370px;
-  left:1050px;
-  width:280px;
+  top:260px;
+  left:600px;
+  width:160px;
 }
 
-/* REFERENCE */
 .ref1{
-  top:445px;
-  left:330px;
-  width:700px;
+  top:310px;
+  left:185px;
+  width:360px;
 }
 
 .ref2{
-  top:445px;
-  left:1050px;
-  width:280px;
+  top:310px;
+  left:570px;
+  width:190px;
 }
 
-/* FROM / TO */
 .from{
-  top:540px;
-  left:330px;
-  width:320px;
+  top:370px;
+  left:185px;
+  width:200px;
 }
 
 .to{
-  top:590px;
-  left:330px;
-  width:320px;
+  top:400px;
+  left:185px;
+  width:200px;
 }
 
-/* PHONE */
 .phone{
-  top:650px;
-  left:330px;
-  width:400px;
+  top:460px;
+  left:185px;
+  width:250px;
+}
+
+@media print{
+  body{
+    background:white;
+  }
 }
 
 </style>
@@ -127,25 +134,20 @@ input{
 
 <div class="container">
 
-<img src="form-bg.jpg">
+<img src="form-bg.png" class="bg">
 
 <input class="umrn" type="text">
 <input class="date" type="text">
 <input class="utility" type="text">
 <input class="sponsor" type="text">
-
 <input class="bankacc" type="text">
 <input class="withbank" type="text">
 <input class="ifsc" type="text">
-
 <input class="amount" type="text">
-
 <input class="ref1" type="text">
 <input class="ref2" type="text">
-
 <input class="from" type="text">
 <input class="to" type="text">
-
 <input class="phone" type="text">
 
 </div>
