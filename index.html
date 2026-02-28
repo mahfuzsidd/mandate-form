@@ -10,35 +10,115 @@ body{
   margin:0;
   display:flex;
   justify-content:center;
-  background:#f0f0f0;
+  background:#e5e5e5;
 }
 
+/* FIXED IMAGE SIZE */
 .container{
   position:relative;
-  width:1000px;
-  height:auto;
+  width:1400px;   /* image ke original width ke hisaab se */
 }
 
-.bg{
+/* IMAGE */
+.container img{
   width:100%;
   display:block;
 }
 
+/* INPUT STYLE */
 input{
   position:absolute;
   border:1px solid black;
-  background:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.75);
+  font-size:14px;
   padding:3px;
-  font-size:12px;
 }
 
-/* POSITIONING */
+/* ================= POSITIONING ================= */
 
-.umrn{ top:95px; left:240px; width:430px; }
-.date{ top:95px; left:760px; width:170px; }
-.bank{ top:210px; left:520px; width:420px; }
-.amount{ top:285px; left:760px; width:200px; }
-.phone{ top:565px; left:230px; width:250px; }
+/* TOP SECTION */
+.umrn{
+  top:110px;
+  left:330px;
+  width:650px;
+}
+
+.date{
+  top:110px;
+  left:1100px;
+  width:230px;
+}
+
+.utility{
+  top:165px;
+  left:330px;
+  width:650px;
+}
+
+.sponsor{
+  top:215px;
+  left:330px;
+  width:600px;
+}
+
+/* ACCOUNT SECTION */
+.bankacc{
+  top:265px;
+  left:850px;
+  width:480px;
+}
+
+.withbank{
+  top:315px;
+  left:330px;
+  width:600px;
+}
+
+.ifsc{
+  top:315px;
+  left:1000px;
+  width:330px;
+}
+
+/* AMOUNT */
+.amount{
+  top:370px;
+  left:1050px;
+  width:280px;
+}
+
+/* REFERENCE */
+.ref1{
+  top:445px;
+  left:330px;
+  width:700px;
+}
+
+.ref2{
+  top:445px;
+  left:1050px;
+  width:280px;
+}
+
+/* FROM / TO */
+.from{
+  top:540px;
+  left:330px;
+  width:320px;
+}
+
+.to{
+  top:590px;
+  left:330px;
+  width:320px;
+}
+
+/* PHONE */
+.phone{
+  top:650px;
+  left:330px;
+  width:400px;
+}
 
 </style>
 </head>
@@ -46,13 +126,27 @@ input{
 <body>
 
 <div class="container">
-<img src="form-bg.jpg" class="bg">
 
-<input type="text" class="umrn">
-<input type="text" class="date">
-<input type="text" class="bank">
-<input type="text" class="amount">
-<input type="text" class="phone">
+<img src="form-bg.jpg">
+
+<input class="umrn" type="text">
+<input class="date" type="text">
+<input class="utility" type="text">
+<input class="sponsor" type="text">
+
+<input class="bankacc" type="text">
+<input class="withbank" type="text">
+<input class="ifsc" type="text">
+
+<input class="amount" type="text">
+
+<input class="ref1" type="text">
+<input class="ref2" type="text">
+
+<input class="from" type="text">
+<input class="to" type="text">
+
+<input class="phone" type="text">
 
 </div>
 
