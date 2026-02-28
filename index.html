@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Mandate Form</title>
+
 <style>
 
 body{
@@ -15,9 +16,10 @@ body{
 .container{
   position:relative;
   width:1000px;
+  height:auto;
 }
 
-.container img{
+.bg{
   width:100%;
   display:block;
 }
@@ -26,41 +28,17 @@ input{
   position:absolute;
   border:1px solid black;
   background:rgba(255,255,255,0.6);
-  padding:2px;
+  padding:3px;
   font-size:12px;
 }
 
-/* Example Field Positions (Adjust if needed) */
+/* POSITIONING */
 
-.umrn{
-  top:90px;
-  left:230px;
-  width:450px;
-}
-
-.date{
-  top:90px;
-  left:760px;
-  width:160px;
-}
-
-.bank{
-  top:210px;
-  left:520px;
-  width:420px;
-}
-
-.amount{
-  top:280px;
-  left:750px;
-  width:200px;
-}
-
-.phone{
-  top:560px;
-  left:220px;
-  width:260px;
-}
+.umrn{ top:95px; left:240px; width:430px; }
+.date{ top:95px; left:760px; width:170px; }
+.bank{ top:210px; left:520px; width:420px; }
+.amount{ top:285px; left:760px; width:200px; }
+.phone{ top:565px; left:230px; width:250px; }
 
 </style>
 </head>
@@ -68,13 +46,13 @@ input{
 <body>
 
 <div class="container">
-<img src="form-bg.jpg">
+<img src="form-bg.jpg" class="bg">
 
-<input class="umrn" type="text">
-<input class="date" type="text">
-<input class="bank" type="text">
-<input class="amount" type="text">
-<input class="phone" type="text">
+<input type="text" class="umrn">
+<input type="text" class="date">
+<input type="text" class="bank">
+<input type="text" class="amount">
+<input type="text" class="phone">
 
 </div>
 
