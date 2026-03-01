@@ -1,82 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editable NACH Form</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NACH Final Perfect</title>
 
-        .form-container {
-            position: relative;
-            width: 1000px; /* Original image width */
-            height: 480px; /* Original image height */
-            background-image: url('https://r2.erweima.ai/i/6f90356c9a3d4639b7082390317e132e.jpg'); /* Aapki uploaded image */
-            background-size: contain;
-            background-repeat: no-repeat;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
+<style>
+body{
+    margin:0;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+    font-family:Arial;
+}
 
-        /* Generic input styling */
-        input {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid #000;
-            font-size: 14px;
-            padding: 2px;
-            outline: none;
-        }
+.form{
+    position:relative;
+    width:1000px;
+    height:460px;
+    background:url("form-bg.png") no-repeat;
+    background-size:100% 100%;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
 
-        input:focus {
-            background: #fff;
-            border-color: blue;
-        }
+input{
+    position:absolute;
+    font-size:14px;
+    border:1px solid #000;
+    background:#fff;
+    box-sizing:border-box;
+}
 
-        /* Individual Box Positioning (Approximate - adjusts as needed) */
-        .umrn { top: 145px; left: 235px; width: 445px; letter-spacing: 12px; }
-        .date { top: 145px; left: 765px; width: 178px; letter-spacing: 8px; }
-        .utility-code { top: 205px; left: 235px; width: 445px; }
-        .bank-code { top: 265px; left: 175px; width: 300px; }
-        .acc-number { top: 335px; left: 540px; width: 403px; letter-spacing: 5px; }
-        .bank-name { top: 405px; left: 175px; width: 440px; }
-        .ifsc { top: 405px; left: 720px; width: 223px; }
-        .amount-words { top: 445px; left: 175px; width: 540px; }
-        .amount-figure { top: 445px; left: 750px; width: 195px; }
-        .ref1 { top: 565px; left: 175px; width: 345px; }
-        .ref2 { top: 565px; left: 605px; width: 340px; }
-        .phone { top: 900px; left: 125px; width: 155px; }
-        
-        /* Checkboxes */
-        .checkbox { position: absolute; cursor: pointer; transform: scale(1.2); }
-        .check-create { top: 225px; left: 768px; }
-        
-    </style>
+.small{
+    width:20px;
+    height:22px;
+    text-align:center;
+}
+
+.medium{
+    height:24px;
+    padding-left:4px;
+}
+
+.checkbox{
+    width:16px;
+    height:16px;
+    cursor:pointer;
+}
+
+/* ===== SHIFT FIXED POSITIONS (Left -5px , Up -4px approx) ===== */
+
+/* WITH BANK */
+.withbank{ top:204px; left:179px; width:550px; }
+
+/* REFERENCE */
+.ref1{ top:259px; left:179px; width:350px; }
+.ref2{ top:259px; left:598px; width:350px; }
+
+/* SIGNATURE NAME */
+.name1{ top:405px; left:300px; width:210px; }
+.name2{ top:178px; left:179px; width:438px; }
+.name3{ top:205px; left:743px; width:203px; }
+
+</style>
 </head>
 <body>
 
-<div class="form-container">
-    <input type="text" class="umrn" placeholder="UMRN Number">
-    <input type="text" class="date" placeholder="DDMMYYYY">
-    <input type="text" class="utility-code" placeholder="Utility Code">
-    <input type="text" class="bank-code" placeholder="Sponsor Bank Code">
-    <input type="text" class="acc-number" placeholder="Bank Account Number">
-    <input type="text" class="bank-name" placeholder="Name of Bank">
-    <input type="text" class="ifsc" placeholder="IFSC / MICR">
-    <input type="text" class="amount-words" placeholder="Amount in Rupees">
-    <input type="text" class="amount-figure" placeholder="Rs.">
-    <input type="text" class="ref1" placeholder="Application Number">
-    <input type="text" class="ref2" placeholder="Policy Number">
-    <input type="text" class="phone" placeholder="Phone Number">
+<div class="form">
 
-    <input type="checkbox" class="checkbox check-create" checked>
+<!-- WITH BANK -->
+<input type="text" class="withbank medium">
+
+<!-- TO DEBIT CHECKBOXES -->
+<input type="checkbox" class="checkbox" style="top:149px; left:175px;">
+<input type="checkbox" class="checkbox" style="top:149px; left:220px;">
+<input type="checkbox" class="checkbox" style="top:149px; left:262px;">
+<input type="checkbox" class="checkbox" style="top:149px; left:306px;">
+<input type="checkbox" class="checkbox" style="top:149px; left:377px;">
+
+<!-- REFERENCE -->
+<input type="text" class="ref1 medium">
+<input type="text" class="ref2 medium">
+
+<!-- SIGNATURE NAME -->
+<input type="text" class="name1 medium">
+<input type="text" class="name2 medium">
+<input type="text" class="name3 medium">
+
+<!-- DATE -->
+<script>
+for(let i=0;i<8;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:68px; left:${766+(i*23)}px;">`);
+}
+</script>
+
+<!-- ACCOUNT -->
+<script>
+for(let i=0;i<18;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:150px; left:${543+(i*23)}px;">`);
+}
+</script>
+
+<!-- IFSC -->
+<script>
+for(let i=0;i<11;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:178px; left:${699+(i*23)}px;">`);
+}
+</script>
+
+<!-- MOBILE -->
+<script>
+for(let i=0;i<10;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:405px; left:${128+(i*16)}px;">`);
+}
+</script>
+
+<!-- FROM DATE -->
+<script>
+for(let i=0;i<8;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:341px; left:${105+(i*17)}px;">`);
+}
+</script>
+
+<!-- TO DATE -->
+<script>
+for(let i=0;i<8;i++){
+document.write(`<input maxlength="1" class="small auto"
+style="top:366px; left:${105+(i*17)}px;">`);
+}
+</script>
+
 </div>
+
+<script>
+/* AUTO MOVE + BACKSPACE */
+document.addEventListener("keydown", function(e){
+if(e.target.classList.contains("auto")){
+if(e.key==="Backspace" && e.target.value===""){
+let prev=e.target.previousElementSibling;
+if(prev && prev.classList.contains("auto")) prev.focus();
+}
+}
+});
+
+document.addEventListener("input", function(e){
+if(e.target.classList.contains("auto")){
+if(e.target.value.length==1){
+let next=e.target.nextElementSibling;
+if(next && next.classList.contains("auto")) next.focus();
+}
+}
+});
+</script>
 
 </body>
 </html>
