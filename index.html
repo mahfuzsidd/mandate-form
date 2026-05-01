@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NACH Final - JPG Download Version</title>
-    <!-- Library for JPG Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
@@ -18,7 +17,6 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Responsive Wrapper */
         .form-wrapper {
             width: 100%;
             max-width: 1000px;
@@ -28,7 +26,6 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
         }
 
-        /* This ID is used for capturing JPG */
         #capture-area {
             position: relative;
             width: 1000px;
@@ -44,7 +41,7 @@
             border: 1px solid #000;
             background: #fff;
             box-sizing: border-box;
-            text-transform: uppercase;
+            /* Yahan transform ki zarurat nahi hogi kyunki JS se permanent caps kar diya hai */
             font-weight: bold;
         }
 
@@ -52,7 +49,6 @@
         .medium { height: 24px; padding-left: 4px; }
         .checkbox { width: 17px; height: 16px; cursor: pointer; }
 
-        /* Coordinates - Exact as per your layout */
         .withbank { top: 191px; left: 180px; width: 543px; }
         .ref1 { top: 252px; left: 180px; width: 346px; }
         .ref2 { top: 252px; left: 604px; width: 346px; }
@@ -127,15 +123,12 @@
     </div>
 </div>
 
-<!-- CONTROLS -->
 <div class="sig-container">
     <h3>Signature & Actions</h3>
     <canvas id="sig-canvas"></canvas>
-    
     <div class="btn-group">
         <button class="clear" onclick="clearCanvas()">Clear Sign</button>
         <button class="apply" onclick="saveSignature()">Apply Sign</button>
-        <!-- JPG DOWNLOAD BUTTON -->
         <button class="download" onclick="downloadJPG()">Download Form as JPG</button>
     </div>
 </div>
@@ -160,12 +153,8 @@
     function draw(e) {
         if (!drawing) return;
         const pos = getPos(e);
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = '#000';
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-        ctx.moveTo(pos.x, pos.y);
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
+        ctx.lineTo(pos.x, pos.y); ctx.stroke(); ctx.moveTo(pos.x, pos.y);
         if (e.cancelable) e.preventDefault();
     }
 
@@ -184,18 +173,12 @@
     function saveSignature() {
         const dataURL = canvas.toDataURL();
         const img = document.getElementById('main-sig-img');
-        img.src = dataURL;
-        img.style.display = 'block';
+        img.src = dataURL; img.style.display = 'block';
     }
 
-    // DOWNLOAD JPG FUNCTION
     function downloadJPG() {
         const area = document.getElementById('capture-area');
-        // html2canvas inputs aur background image dono ko capture kar leta hai
-        html2canvas(area, {
-            useCORS: true,
-            scale: 2 // High quality download
-        }).then(canvas => {
+        html2canvas(area, { useCORS: true, scale: 2 }).then(canvas => {
             const link = document.createElement('a');
             link.download = 'NACH_Form_Filled.jpg';
             link.href = canvas.toDataURL("image/jpeg", 0.9);
@@ -203,7 +186,17 @@
         });
     }
 
-    // Auto-Tab Logic
+    // UPDATED LOGIC FOR COPY-PASTE AND UPPERCASE
+    document.addEventListener("input", function(e){
+        // Permanent Uppercase for all inputs
+        e.target.value = e.target.value.toUpperCase();
+
+        if(e.target.classList.contains("auto") && e.target.value.length == 1){
+            let next = e.target.nextElementSibling;
+            if(next && next.classList.contains("auto")) next.focus();
+        }
+    });
+
     document.addEventListener("keydown", function(e){
         if(e.target.classList.contains("auto")){
             if(e.key==="Backspace" && e.target.value===""){
@@ -213,13 +206,129 @@
         }
     });
 
-    document.addEventListener("input", function(e){
-        if(e.target.classList.contains("auto") && e.target.value.length == 1){
-            let next = e.target.nextElementSibling;
-            if(next && next.classList.contains("auto")) next.focus();
+    // PASTE LOGIC FOR GRID BOXES
+    document.addEventListener("paste", function(e) {
+        if (e.target.classList.contains("auto")) {
+            e.preventDefault();
+            const pasteData = (e.clipboardData || window.clipboardData).getData('text').toUpperCase();
+            let currentInput = e.target;
+            
+            for (let i = 0; i < pasteData.length; i++) {
+                if (currentInput && currentInput.classList.contains("auto")) {
+                    currentInput.value = pasteData[i];
+                    currentInput = currentInput.nextElementSibling;
+                } else {
+                    break;
+                }
+            }
+            if (currentInput) currentInput.focus();
         }
     });
 </script>
+<!-- Final Personalized Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="contact-info">
+            <p>Connect with me:</p>
+            <div class="social-links">
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/919507352847" target="_blank" title="WhatsApp">
+                    <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp"/>
+                </a>
+                
+                <!-- Email Link -->
+                <a href="mailto:Mahfuzsiddique4way@gmail.com" title="Email">
+                    <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Email"/>
+                </a>
+                
+                <!-- Instagram Link -->
+                <a href="https://instagram.com/mahfuzsidd" target="_blank" title="Instagram">
+                    <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram"/>
+                </a>
+            </div>
+        </div>
+        
+        <div class="credits">
+            <p>© 2026 Pura Cricket League & NACH Tool</p>
+            <p class="designer">Designed by <span>Mahfuz Siddiqui</span></p>
+        </div>
+    </div>
+</footer>
 
+<style>
+    .footer {
+        background: #1a1a1a; /* Sleek Dark Theme */
+        color: #ffffff;
+        padding: 40px 10px;
+        width: 100%;
+        margin-top: 60px;
+        text-align: center;
+        border-top: 3px solid #3498db;
+    }
+
+    .footer-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .contact-info p {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #bdc3c7;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 25px;
+    }
+
+    .social-links a {
+        transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+        transform: scale(1.2) rotate(5deg);
+    }
+
+    .social-links img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .credits {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        width: 80%;
+    }
+
+    .credits p {
+        font-size: 13px;
+        color: #7f8c8d;
+        margin: 5px 0;
+    }
+
+    .designer {
+        font-size: 16px !important;
+        letter-spacing: 1.5px;
+        color: #ffffff !important;
+    }
+
+    .designer span {
+        color: #3498db;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+        .footer { padding: 30px 10px; }
+        .social-links { gap: 20px; }
+    }
+</style>
 </body>
 </html>
