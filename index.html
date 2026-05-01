@@ -1,157 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NACH Final Perfect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NACH Final - JPG Download Version</title>
+    <!-- Library for JPG Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<style>
-body{
-    margin:0;
-    background:#f2f2f2;
-    display:flex;
-    justify-content:center;
-    padding:20px;
-    font-family:Arial;
-}
+    <style>
+        body {
+            margin: 0;
+            background: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
 
-.form{
-    position:relative;
-    width:1000px;
-    height:460px;
-    background:url("form-bg.png") no-repeat;
-    background-size:100% 100%;
-    box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
+        /* Responsive Wrapper */
+        .form-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            overflow-x: auto;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
 
-input{
-    position:absolute;
-    font-size:14px;
-    border:1px solid #000;
-    background:#fff;
-    box-sizing:border-box;
-}
+        /* This ID is used for capturing JPG */
+        #capture-area {
+            position: relative;
+            width: 1000px;
+            height: 460px;
+            background: url("https://i.postimg.cc/hjKmVm17/1000308827.jpg") no-repeat;
+            background-size: 100% 100%;
+            background-color: white;
+        }
 
-.small{
-    width:20px;
-    height:22px;
-    text-align:center;
-}
+        input {
+            position: absolute;
+            font-size: 14px;
+            border: 1px solid #000;
+            background: #fff;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
 
-.medium{
-    height:24px;
-    padding-left:4px;
-}
+        .small { width: 20px; height: 22px; text-align: center; }
+        .medium { height: 24px; padding-left: 4px; }
+        .checkbox { width: 17px; height: 16px; cursor: pointer; }
 
-.checkbox{
-    width:16px;
-    height:16px;
-    cursor:pointer;
-}
+        /* Coordinates - Exact as per your layout */
+        .withbank { top: 191px; left: 180px; width: 543px; }
+        .ref1 { top: 252px; left: 180px; width: 346px; }
+        .ref2 { top: 252px; left: 604px; width: 346px; }
+        .name1 { top: 420px; left: 300px; width: 210px; }
+        .name2 { top: 158px; left: 180px; width: 439px; }
+        .name3 { top: 190px; left: 747px; width: 203px; }
+        .mobile-plain { top: 424px; left: 128px; width: 160px; height: 24px; letter-spacing: 2px; }
 
-/* ===== SHIFT FIXED POSITIONS (Left -5px , Up -4px approx) ===== */
+        .sig-overlay {
+            position: absolute;
+            width: 160px;
+            height: 55px;
+            pointer-events: none;
+            display: none;
+            top: 350px; 
+            left: 335px;
+        }
 
-/* WITH BANK */
-.withbank{ top:204px; left:165px; width:520px; }
+        .sig-container {
+            margin-top: 25px;
+            background: #fff;
+            border: 2px solid #333;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
 
-/* REFERENCE */
-.ref1{ top:259px; left:165px; width:350px; }
-.ref2{ top:259px; left:554px; width:350px; }
+        canvas {
+            border: 1px solid #999;
+            background: #fff;
+            touch-action: none;
+            width: 100%;
+            height: 250px;
+        }
 
-/* SIGNATURE NAME */
-.name1{ top:404px; left:280px; width:210px; }
-.name2{ top:177px; left:165px; width:415px; }
-.name3{ top:205px; left:700px; width:203px; }
-
-</style>
+        .btn-group { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        button { padding: 12px 25px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; }
+        .clear { background: #e74c3c; color: white; }
+        .apply { background: #2ecc71; color: white; }
+        .download { background: #3498db; color: white; width: 100%; max-width: 300px; }
+    </style>
 </head>
 <body>
 
-<div class="form">
+<div class="form-wrapper">
+    <div id="capture-area">
+        <input type="text" class="withbank medium">
+        <input type="checkbox" class="checkbox" style="top:125px; left:177px;">
+        <input type="text" class="ref1 medium">
+        <input type="text" class="ref2 medium">
+        <input type="text" class="name1 medium">
+        <input type="text" class="name2 medium">
+        <input type="text" class="name3 medium">
+        <input type="text" class="mobile-plain" maxlength="10" placeholder="MOBILE NO">
 
-<!-- WITH BANK -->
-<input type="text" class="withbank medium">
+        <img id="main-sig-img" class="sig-overlay">
 
-<!-- TO DEBIT CHECKBOXES -->
-<input type="checkbox" class="checkbox" style="top:149px; left:165px;">
+        <script>
+            const drawGrid = (top, left, count, gap) => {
+                for(let i=0; i<count; i++){
+                    document.write(`<input maxlength="1" class="small auto" style="top:${top}px; left:${left+(i*gap)}px;">`);
+                }
+            };
+            drawGrid(32, 768, 8, 23);   // Date
+            drawGrid(126, 544, 18, 22.5); // Account
+            drawGrid(159, 701, 11, 23); // IFSC
+            drawGrid(349, 105, 8, 17);   // From Date
+            drawGrid(377, 105, 8, 17);   // To Date
+        </script>
+    </div>
+</div>
 
-<!-- REFERENCE -->
-<input type="text" class="ref1 medium">
-<input type="text" class="ref2 medium">
-
-<!-- SIGNATURE NAME -->
-<input type="text" class="name1 medium">
-<input type="text" class="name2 medium">
-<input type="text" class="name3 medium">
-
-<!-- DATE -->
-<script>
-for(let i=0;i<8;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:68px; left:${720+(i*21)}px;">`);
-}
-</script>
-
-<!-- ACCOUNT -->
-<script>
-for(let i=0;i<18;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:149px; left:${509+(i*23)}px;">`);
-}
-</script>
-
-<!-- IFSC -->
-<script>
-for(let i=0;i<11;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:178px; left:${658+(i*22)}px;">`);
-}
-</script>
-
-<!-- MOBILE -->
-<script>
-for(let i=0;i<10;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:406px; left:${121+(i*14)}px;">`);
-}
-</script>
-
-<!-- FROM DATE -->
-<script>
-for(let i=0;i<8;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:341px; left:${98+(i*16)}px;">`);
-}
-</script>
-
-<!-- TO DATE -->
-<script>
-for(let i=0;i<8;i++){
-document.write(`<input maxlength="1" class="small auto"
-style="top:366px; left:${98+(i*16)}px;">`);
-}
-</script>
-
+<!-- CONTROLS -->
+<div class="sig-container">
+    <h3>Signature & Actions</h3>
+    <canvas id="sig-canvas"></canvas>
+    
+    <div class="btn-group">
+        <button class="clear" onclick="clearCanvas()">Clear Sign</button>
+        <button class="apply" onclick="saveSignature()">Apply Sign</button>
+        <!-- JPG DOWNLOAD BUTTON -->
+        <button class="download" onclick="downloadJPG()">Download Form as JPG</button>
+    </div>
 </div>
 
 <script>
-/* AUTO MOVE + BACKSPACE */
-document.addEventListener("keydown", function(e){
-if(e.target.classList.contains("auto")){
-if(e.key==="Backspace" && e.target.value===""){
-let prev=e.target.previousElementSibling;
-if(prev && prev.classList.contains("auto")) prev.focus();
-}
-}
-});
+    const canvas = document.getElementById('sig-canvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
 
-document.addEventListener("input", function(e){
-if(e.target.classList.contains("auto")){
-if(e.target.value.length==1){
-let next=e.target.nextElementSibling;
-if(next && next.classList.contains("auto")) next.focus();
-}
-}
-});
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function start(e) { drawing = true; ctx.beginPath(); draw(e); }
+    function stop() { drawing = false; }
+    function draw(e) {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        ctx.moveTo(pos.x, pos.y);
+        if (e.cancelable) e.preventDefault();
+    }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stop);
+    canvas.addEventListener('touchstart', start);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stop);
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('main-sig-img').style.display = 'none';
+    }
+
+    function saveSignature() {
+        const dataURL = canvas.toDataURL();
+        const img = document.getElementById('main-sig-img');
+        img.src = dataURL;
+        img.style.display = 'block';
+    }
+
+    // DOWNLOAD JPG FUNCTION
+    function downloadJPG() {
+        const area = document.getElementById('capture-area');
+        // html2canvas inputs aur background image dono ko capture kar leta hai
+        html2canvas(area, {
+            useCORS: true,
+            scale: 2 // High quality download
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'NACH_Form_Filled.jpg';
+            link.href = canvas.toDataURL("image/jpeg", 0.9);
+            link.click();
+        });
+    }
+
+    // Auto-Tab Logic
+    document.addEventListener("keydown", function(e){
+        if(e.target.classList.contains("auto")){
+            if(e.key==="Backspace" && e.target.value===""){
+                let prev = e.target.previousElementSibling;
+                if(prev && prev.classList.contains("auto")) prev.focus();
+            }
+        }
+    });
+
+    document.addEventListener("input", function(e){
+        if(e.target.classList.contains("auto") && e.target.value.length == 1){
+            let next = e.target.nextElementSibling;
+            if(next && next.classList.contains("auto")) next.focus();
+        }
+    });
 </script>
 
 </body>
