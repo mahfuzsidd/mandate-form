@@ -94,6 +94,104 @@
     </style>
 </head>
 <body>
+    <!-- Professional Header -->
+<header class="main-header">
+    <div class="header-content">
+        <div class="logo-area">
+            <h1>NACH <span>PRO</span></h1>
+            <p>Auto Debit Form Generator</p>
+        </div>
+        <div class="header-right">
+            <div id="live-clock">00:00:00</div>
+            <div class="status-badge">System Active</div>
+        </div>
+    </div>
+</header>
+
+<style>
+    .main-header {
+        background: #ffffff;
+        width: 100%;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        border-bottom: 3px solid #3498db;
+    }
+
+    .header-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .logo-area h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+
+    .logo-area h1 span {
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    .logo-area p {
+        margin: 0;
+        font-size: 12px;
+        color: #7f8c8d;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .header-right {
+        text-align: right;
+    }
+
+    #live-clock {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 18px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .status-badge {
+        font-size: 11px;
+        background: #2ecc71;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+        margin-top: 5px;
+        text-transform: uppercase;
+    }
+
+    /* Mobile scaling */
+    @media (max-width: 600px) {
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+        .header-right {
+            text-align: center;
+        }
+    }
+</style>
+
+<script>
+    // Live clock function
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString();
+        document.getElementById('live-clock').innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
 
 <div class="form-wrapper">
     <div id="capture-area">
